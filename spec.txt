@@ -1,0 +1,12 @@
+1. Ability to create race arena, start line, finish line
+1a. Set different race track types - start lines vs starting gates
+1b. Set laps for race
+2. Join race via /join
+2a. Start race automatically after x-amount of time and all 4 racers
+2b. Start by vote.
+3. Stats for jockeys, horses, arenas
+4. Gambling
+4a. Automatic odds based on stats
+4b. Currency conversion
+5. Vote for number of races.
+6. Allow racers to enter money.
