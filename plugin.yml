@@ -1,3 +1,9 @@
 name: ACOGHorseRacing
 main: com.abercog.minecraft.acoghorseracing
 version: 1.0
+commands:
+   createtrack:
+      description: This is the track to create a race track. Types include 'gate' and 'line'. Lab boolean specifies whether a user can create races with laps on this track.
+      usage: /createtrack <track name> <type> [lap boolean]
+      permission: acoghorseracing.createtrack
+      permission-message: You don't have permission to create tracks!
