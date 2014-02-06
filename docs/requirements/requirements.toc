@@ -30,7 +30,7 @@
 \contentsline {subsubsection}{\numberline {6.2.6}Other}{12}
 \contentsline {subsubsection}{\numberline {6.2.7}Constraints}{12}
 \contentsline {subsubsection}{\numberline {6.2.8}Data Handling}{12}
-\contentsline {subsection}{\numberline {6.3}REQ 1: Race Track Creation}{13}
+\contentsline {subsection}{\numberline {6.3}REQ 3: Joining a Race}{13}
 \contentsline {subsubsection}{\numberline {6.3.1}Description}{13}
 \contentsline {subsubsection}{\numberline {6.3.2}Input}{13}
 \contentsline {subsubsection}{\numberline {6.3.3}Display}{13}
@@ -39,7 +39,7 @@
 \contentsline {subsubsection}{\numberline {6.3.6}Other}{13}
 \contentsline {subsubsection}{\numberline {6.3.7}Constraints}{13}
 \contentsline {subsubsection}{\numberline {6.3.8}Data Handling}{13}
-\contentsline {subsection}{\numberline {6.4}REQ 1: Race Track Creation}{14}
+\contentsline {subsection}{\numberline {6.4}REQ 4: Starting a Race}{14}
 \contentsline {subsubsection}{\numberline {6.4.1}Description}{14}
 \contentsline {subsubsection}{\numberline {6.4.2}Input}{14}
 \contentsline {subsubsection}{\numberline {6.4.3}Display}{14}
@@ -48,7 +48,7 @@
 \contentsline {subsubsection}{\numberline {6.4.6}Other}{14}
 \contentsline {subsubsection}{\numberline {6.4.7}Constraints}{14}
 \contentsline {subsubsection}{\numberline {6.4.8}Data Handling}{14}
-\contentsline {subsection}{\numberline {6.5}REQ 1: Race Track Creation}{15}
+\contentsline {subsection}{\numberline {6.5}REQ 5: Running a race}{15}
 \contentsline {subsubsection}{\numberline {6.5.1}Description}{15}
 \contentsline {subsubsection}{\numberline {6.5.2}Input}{15}
 \contentsline {subsubsection}{\numberline {6.5.3}Display}{15}
@@ -57,7 +57,7 @@
 \contentsline {subsubsection}{\numberline {6.5.6}Other}{15}
 \contentsline {subsubsection}{\numberline {6.5.7}Constraints}{15}
 \contentsline {subsubsection}{\numberline {6.5.8}Data Handling}{15}
-\contentsline {subsection}{\numberline {6.6}REQ 1: Race Track Creation}{16}
+\contentsline {subsection}{\numberline {6.6}REQ 6: Finishing a race}{16}
 \contentsline {subsubsection}{\numberline {6.6.1}Description}{16}
 \contentsline {subsubsection}{\numberline {6.6.2}Input}{16}
 \contentsline {subsubsection}{\numberline {6.6.3}Display}{16}
@@ -66,7 +66,7 @@
 \contentsline {subsubsection}{\numberline {6.6.6}Other}{16}
 \contentsline {subsubsection}{\numberline {6.6.7}Constraints}{16}
 \contentsline {subsubsection}{\numberline {6.6.8}Data Handling}{16}
-\contentsline {subsection}{\numberline {6.7}REQ 1: Race Track Creation}{17}
+\contentsline {subsection}{\numberline {6.7}REQ 7: Statistics generation}{17}
 \contentsline {subsubsection}{\numberline {6.7.1}Description}{17}
 \contentsline {subsubsection}{\numberline {6.7.2}Input}{17}
 \contentsline {subsubsection}{\numberline {6.7.3}Display}{17}
@@ -75,7 +75,7 @@
 \contentsline {subsubsection}{\numberline {6.7.6}Other}{17}
 \contentsline {subsubsection}{\numberline {6.7.7}Constraints}{17}
 \contentsline {subsubsection}{\numberline {6.7.8}Data Handling}{17}
-\contentsline {subsection}{\numberline {6.8}REQ 1: Race Track Creation}{18}
+\contentsline {subsection}{\numberline {6.8}REQ 8: Statistics viewing}{18}
 \contentsline {subsubsection}{\numberline {6.8.1}Description}{18}
 \contentsline {subsubsection}{\numberline {6.8.2}Input}{18}
 \contentsline {subsubsection}{\numberline {6.8.3}Display}{18}
@@ -84,7 +84,7 @@
 \contentsline {subsubsection}{\numberline {6.8.6}Other}{18}
 \contentsline {subsubsection}{\numberline {6.8.7}Constraints}{18}
 \contentsline {subsubsection}{\numberline {6.8.8}Data Handling}{18}
-\contentsline {subsection}{\numberline {6.9}REQ 1: Race Track Creation}{19}
+\contentsline {subsection}{\numberline {6.9}REQ 9: Gambling}{19}
 \contentsline {subsubsection}{\numberline {6.9.1}Description}{19}
 \contentsline {subsubsection}{\numberline {6.9.2}Input}{19}
 \contentsline {subsubsection}{\numberline {6.9.3}Display}{19}
