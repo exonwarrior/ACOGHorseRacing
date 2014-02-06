@@ -1,0 +1,333 @@
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[a4paper, 11pt]{article} % use larger type; default would be 10pt
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{graphicx} % support the \includegraphics command and options
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{ACOGHorseRacing Plugin - Requirements Specification}
+\author{Dave Haenze}
+
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{ACOGHorseRacing (AHR)}\chead{}\rhead{Requirements Specification}
+\lfoot{Dave Haenze}\cfoot{}\rfoot{Page \thepage}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+
+This section introduces the requirements for ACOG's Horse Racing plugin. It provides the purpose and scope of the plugin as well as explaining all references and acronyms. Finally, it outlines the rest of the requirements specification.
+
+\subsection{Purpose}
+
+The requirements specification document describes the functions and requirements for the Horse Racing plugin for ACOG's Minecraft server. The plugin aims to address the users' want for a way to run and manage horse races. The resulting software shall provide the server's players with the requested functionality, such as creation of race tracks, joining and running races, and managing monetary rewards. Much of that functionality is already available in vanilla Minecraft, however this plugin aims to automate it and reduce the possibility of users cheating.
+
+\subsection{Scope}
+
+The AHR plugin is designed to provide new functionality to AMG members wanting to organize horse races. It will provide specified users with the ability to create a race track. Creating a race track will require specifying the start line or starting gates, the finish line and the sides of the track. Two types of tracks can be created, tracks beginning with a start line, and tracks with starting gates. Once a track is created, users can join a race on the track. If no races are running on a specified track, a user can create a race to run on said track. During creation, they can specify a number of racers, which is between two and the number of gates (if it is a gate race) or width of start/finish lines divided by two (as each horse takes up two blocks). Once created, other users can join by command, and are teleported to the start line/a starting gate. The race starts in two ways: the race creator starting it with a command, or automatically once each racer has voted to start. Upon the beginning of a race, the gates open (or users are allowed to leave the start line). As each user crosses the finish line, their place and time is posted. Any user that doesn't finish the race within a specified amount of time after that will be disqualified (DNF, did not finish). Upon the completion of the race, users are teleported outside of the race track.
+
+Statistics will be compiled in a database, with four tables. These tables shall be Players, Horses, Race Tracks and Races. Players will contain columns for UID, player name, races won, races lost, winnings, average place. Horses will contain HID, horse name, speed, jump height, jockeys, races won, races lost, winnings, average place. Race Tracks will contain RTID, race track name, creator, location (X,Y,Z coordinates), type, max number of racers, races. Finally, Races will contain RID, player names, horse names, times, places, bets.
+
+Users will be allowed to gamble on races. This is done by command, allowing a user to select a race to gamble on, then which player/horse to bet on and how much. Based on the databases, odds will be generated. While betting, users will be able to bet an amount in several different currencies (most likely four), such as diamonds, gold ingots, iron ingots and emeralds. Upon completion of the race, users will automatically be given a payout in the currency they origially bet on (that is, a user that bets diamonds will receive diamonds, a user that bets gold ingots will receive gold.
+
+\subsection{Definitions, Acronyms and Abbreviations}
+
+\begin{itemize}
+	\item \textbf{ACOG} -- Aberystwyth Community of Gamers, Aberystwyth University's gaming society
+	\item \textbf{AMG} -- Aberystwyth Minecraft Group, a subgroup of ACOG's, catering to the large community of Minecraft players
+	\item \textbf{AHR plugin} -- The ACOGHorseRacing plugin
+	\item \textbf{Vanilla Minecraft} -- unmodified Minecraft, either single player or multiplayer
+	\item \textbf{Op or Ops} -- short for ``operator(s)'', users with some administrator privileges on a server
+	\item \textbf{UID} -- User Identifier
+	\item \textbf{HID} -- Horse Identifier
+	\item \textbf{RTID} -- Race Track Identifier
+	\item \textbf{RID} -- Race Identifier
+\end{itemize}
+
+\subsection{Overview}
+
+This document provides a high-level description of the ACOGHorseRacing plugin. It identifies the involved users and helps explain their roles. The document then describes general software and hardware constraints as well as any assumptions and dependencies concerning the system. The majority of this document focuses on the specific requirements list. A master list of specific requirements is given first, followed by each requirement explained in detail in the next section.
+
+\section{General Description}
+
+This section is used to provide a high-level description of the plugin, as well as identify users involved and help explain their roles.
+
+\subsection{System Functions}
+
+\subsection{User Characteristics}
+
+There are five main groups of users that will use the plugin. Note however that, unlike in most cases, these groups of users are not necessarily going to be exclusive. Users can be a part of more than one group (though not always simulatenously).
+
+The first category of users are ops, or operators, that administrate the server. They will have the ability to create race tracks. They will need to know how and where to create the tracks. They will be the only users to have the ability to create race-tracks in the plugin, to keep malicious users from creating a race-track in, for example, someone's home.
+
+The second group of users are race creators. Any player on the server will have the ability to create a race, provided the creator of the race-track has not requested that only certain users be allowed to race on their track. They will create a race by specifying the arena, the number of racers and the number of laps.
+
+The third group of users are racers. These are people that join a race made by a race creator. They will have access to the /join command, in which they specify the race they wish to join. Additionally, they will be able to vote to start a race if there are fewer racers present than the max number of racers.
+
+The fourth group of users are spectators. They will be able to gamble and place bets on different races. Provided they are within a certain distance of the track, they can place bets on individual racers, either the jockeys or the horses themselves.
+
+Finally, the fifth group of users are general users on the server. They will be able to view the database by command, giving them access to a leaderboard (top 10 horses/jockeys), viewing individual horses/jockeys stats, and viewing overall stats for a specific track.
+
+\newpage
+
+\section{General Constraints}
+
+\subsection{Software limitations}
+
+\begin{itemize}
+	\item JRE v7 is used to run this plugin.
+	\item Servers running the plugin will be required to use Bukkit 1.7.2-R02, as this is the build that the plugin will be tested with. Older versions will not necessarily work, and neither will new versions. Any Bukkit builds pre-1.6 will definitely not function, as horses did not even exist in Minecraft then.
+	\item Servers will have to have access to a MySQL database if stats are to be enabled.
+\end{itemize}
+
+\subsection{Hardware constraints}
+
+\begin{itemize}
+	\item A server wishing to run this plugin will require the same specs as the test server.
+\end{itemize}
+
+\section{Assumptions and Dependencies}
+
+\begin{itemize}
+	\item The plugin assumes users have sufficient skill to use simple commands in Minecraft.
+	\item Saving and displaying statistics is dependent on MySQL
+\end{itemize}
+
+\newpage
+
+\section{Requirements Master List}
+
+This section contains the listing of all requirements for the ACOGHorseRacing plugin. The list contains unique requirement numbers and names with a short description of each requirement. The following section describes these requirements in full detail.
+
+\begin{itemize}
+	\item \textbf{REQ 1}: Race Track Creation -- The plugin will allow operators to create race tracks, specifying type of race track, starting line, finish line, and spawns/max number of racers.
+	\item \textbf{REQ 2}: Race Creation -- The plugin will allow users to create races, specifying the track, number of racers and number of laps (default 1).
+	\item \textbf{REQ 3}: Joining a Race -- The plugin will allow users to join a race, up to the maximum number of spawns available for said race.
+	\item \textbf{REQ 4}: Starting a Race -- The plugin shall begin a race automatically a certain amount of time after the max number of racers has been reached, or once a majority of racers present have voted to start.
+	\item \textbf{REQ 5}: Running a race -- The plugin will announce the start of a race and keep track of the each racers position. It will warn users if they are leaving the race track, and disqualify any attempted cheaters.
+	\item \textbf{REQ 6}: Finishing a race -- The plugin shall report each users place and time upon successfull completion of a race, and disqualify users who do not finish within a configurable amount of time after the first person finishes.
+	\item \textbf{REQ 7}: Statistics generation -- The plugin can be configured to have stats saving on or off. If on, it will automatically save the results of each race to a database, and add their respective results to each players/race tracks/horses existing row in the respective table.
+	\item \textbf{REQ 8}: Statistics viewing -- The plugin shall allow users to view statistics, such as a leaderboard, available for horses and jockeys seperately, both overall and per race track. The plugin will also facilitate viewing a specific horse's, player's, race's and/or race track's individual statistics.
+	\item \textbf{REQ 9}: Gambling -- The plugin can be configured to allow users to place bets on a race. If enabled, users can place bets on a race. These bets are placed in various currencies (with configurable eligibility and exchange rate between them). If statistics are enabled, odds can be generated automatically as well.
+\end{itemize}
+
+\newpage
+
+\section{Requirements Detail}
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+The plugin will allow operators (or other users that are give the permission) to create race tracks. This process is invoked whenever a users with sufficient privileges issues the \verb;/ahr createtrack <name> [track type] [lap boolean]; command. The available choices of track type are \verb;line; and \verb;gate; for having a starting line or starting gates, respectively. Depending on the type chosen, the user will be given different instructions. If a starting line is chosen, the user is prompted to select a line of blocks - this will be the starting line. This is done by selecting the first then last block of the line. After selecting the starting line, the user is prompted to create ``spawns''. This is done by selecting a 2x3 area, with the one of the short sides being directly adjacent to the starting line. In the case of a race track with gates being created, the user is prompted to select starting gates, by clicking the first gate in the line and then the last. Finally, the user is prompted to select the finish line - this is done by selecting the first and last block of the line, just like with creating a starting line. Lastly, the user is given the choice to select a ``delimiter'', a block that separates the race track from the rest of the world.
+
+\subsubsection{Input}
+
+Several types of user inputs are used. First of all, there is the \verb;/ahr createtrack <track type>; command. Secondly, the user selects various parts of the game world to create start and finish lines, as well as the ``delimiter'' block. Lastly, the user gives the track a name.
+
+\subsubsection{Display}
+
+At each stage of track creation, the system will output a message to the user, prompting them to complete the next stage of race track creation. This should be a simple, unambigious and easily understandable message told directly to the user.
+
+\subsubsection{System Processing}
+
+Once the user has finished creating the track, it is added to either a) the MySQL database (if it is enabled) or b) a flat file. The database/file will be updated with the location and name of the track, the number of spawns, the location of the start line/gates and the finish line.
+
+\subsubsection{System Output}
+
+At each stage of the track creation process, the system will output messages such as ``Start line selected!'' or ``Starting point created!'', confirming that the user has completed these stages.
+
+\subsubsection{Other}
+
+N/A
+
+\subsubsection{Constraints}
+
+N/A
+
+\subsubsection{Data Handling}
+
+The database/flat file is updated each time a track is completed. At each stage of the track creation process, the data input by the user is validated to be certain that correct data is entered. Examples include preventing the user from selecting anything but a 2x3 area as a starting point, only allowing a one block wide area be selected as a starting line, etc.
+
+\newpage
+
+\subsection{REQ 2: Race Creation}
+
+\subsubsection{Description}
+
+The plugin will allow users to create races on select tracks, using the \\\verb;/ahr createrace <track> [no of racers] [no of laps]; command. While creating a race, the user must provide the name of the track to race on. Optionally, they may set the number of racers (default is number of starting points on the track) and/or the number of laps (default is 1). Upon creating a race, the creator is automatically teleported to a starting point/gate. However, being mounted on a horse is required - if the user is not mounted, an error message will be displayed.
+
+\subsubsection{Input}
+
+\verb;/ahr createrace;, the track name, the number of racers and the number of laps (the last two being optional).
+
+\subsubsection{Display}
+
+A message will be sent by the server, saying that the race has been created and displaying the data, e.g.,\\ \verb;Race created on Race Track, with 4 racers and 3 lap(s)!;
+
+If incorrect options/parameters are provided, the system will output a warning message, such as \verb;No such track exists!; or \verb;Too many racers; or \verb;Incorrect number of laps!;
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+
+\subsection{REQ 1: Race Track Creation}
+
+\subsubsection{Description}
+
+\subsubsection{Input}
+
+\subsubsection{Display}
+
+\subsubsection{System Processing}
+
+\subsubsection{System Output}
+
+\subsubsection{Other}
+
+\subsubsection{Constraints}
+
+\subsubsection{Data Handling}
+
+\newpage
+\end{document}
